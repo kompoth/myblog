@@ -1,0 +1,52 @@
+baseURL = "https://kmiziz.xyz/"
+languageCode = "en-us"
+title = "⬡⬢⬡ Vasily Negrebetskiy"
+theme = "typo"
+
+[params]
+description = "A blog about software and more"
+
+theme = "auto"
+colorPalette = "gruvebox"
+
+homeIntroTitle = "Hi! -`ღ´-"
+homeIntroContent = """
+I am a passionate Python Engineer with a strong scientific background and enthusiasm for creating impactful solutions.
+There are various topics I am interested in, including software architecture, data handling, static code analysis, and procedural generation.
+
+Apart from programming, I am a big fan of [HEMA](https://en.wikipedia.org/wiki/Historical_European_martial_arts),
+tabletop role-playing games, fantasy and science fiction literature.
+
+![Jacques Callot, Duel with Swords and Daggers](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Jacques_Callot%2C_Duel_with_Swords_and_Daggers%2C_c._1622%2C_NGA_51629.jpg/800px-Jacques_Callot%2C_Duel_with_Swords_and_Daggers%2C_c._1622%2C_NGA_51629.jpg "Jacques Callot, Duel with Swords and Daggers")
+
+This is my personal page where you can find out more about me and my projects and probably read some of my blog posts.
+"""
+
+hideHeader = true
+breadcrumbs = true
+listSummaries = true
+
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+[[params.menu]]
+name = "about"
+url = "/about"
+
+
+[[params.social]]
+name = "github"
+url = "https://github.com/kompoth"
+
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/kompoth/"
+
+[markup]
+[markup.highlight]
+style = 'gruvbox'
