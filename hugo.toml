@@ -26,6 +26,7 @@ This is my personal page where you can find out more about me and my projects an
 """
 
 hideHeader = true
+showFooter = true
 breadcrumbs = true
 listSummaries = true
 
