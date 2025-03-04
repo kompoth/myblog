@@ -4,7 +4,7 @@ title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo"
 
 [taxonomies]
-tag = 'tags'
+tag = "tags"
 
 [params]
 description = "A blog about software and more"
@@ -28,7 +28,10 @@ This is my personal page where you can find out more about me and my projects an
 hideHeader = true
 showFooter = true
 breadcrumbs = true
+
+paginationSize = 100
 listSummaries = true
+listDateFormat = '02 Jan 2006'
 
 [[params.menu]]
 name = "home"

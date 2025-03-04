@@ -6,4 +6,5 @@ git add . && git commit -m "Update ${date}" && git push
 
 hugo --minify
 
+ssh myblog -t 'rm public/* -r'
 scp -r public myblog:~
