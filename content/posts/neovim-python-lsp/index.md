@@ -5,7 +5,8 @@ summary: "My take on a sane Neovim LSP and static type checker configuration."
 description: "Neovim LSP and type checker config."
 toc: true 
 readTime: true
-autonumber: false 
+autonumber: true
+math: true 
 tags: ["Neovim", "Python", "LSP"]
 showTags: false 
 ---
