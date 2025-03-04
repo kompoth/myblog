@@ -1,8 +1,8 @@
 ---
 title: "Neovim Python LSP setup"
 date: "2025-03-04"
-summary: "My take on a sane Neovim LSP configuration for a Python developer."
-description: "My take on a sane Neovim LSP configuration for a Python developer."
+summary: "My take on a sane Neovim LSP and static type checker configuration."
+description: "My take on a sane Neovim configuration with an LSP and a static type checker, meeting needs of a seasoned Python Developer."
 toc: true 
 readTime: true
 autonumber: false 
