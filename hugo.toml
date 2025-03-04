@@ -35,8 +35,8 @@ name = "posts"
 url = "/posts"
 
 [[params.menu]]
-name = "about"
-url = "/about"
+name = "whoami"
+url = "/whoami"
 
 
 [[params.social]]
