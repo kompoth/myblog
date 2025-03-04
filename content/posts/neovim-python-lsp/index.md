@@ -1,6 +1,5 @@
 ---
 title: "Neovim Python LSP setup"
-draft: true
 date: "2025-03-04"
 summary: "My take on a sane Neovim LSP configuration for a Python developer"
 description: "My take on a sane Neovim LSP configuration for a Python developer"
