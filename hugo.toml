@@ -3,6 +3,9 @@ languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo"
 
+[taxonomies]
+tag = 'tags'
+
 [params]
 description = "A blog about software and more"
 
