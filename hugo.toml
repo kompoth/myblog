@@ -8,7 +8,6 @@ tag = "tags"
 
 [params]
 description = "A tech-oriented personal blog"
-images = ["og.png"]
 
 theme = "auto"
 colorPalette = "gruvebox"
