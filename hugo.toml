@@ -3,8 +3,8 @@ languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo"
 
-[taxonomies]
-tag = "tags"
+# [taxonomies]
+# tag = "tags"
 
 [params]
 description = "A blog about software and more"
@@ -31,7 +31,15 @@ breadcrumbs = true
 
 paginationSize = 100
 listSummaries = true
-listDateFormat = '02 Jan 2006'
+listDateFormat = "02 Jan 2006"
+
+disableKinds = ["taxonomy", "term"]
+
+[outputs]
+home = ['html']
+section = ['html', 'rss']
+taxonomy = ['html']
+term = ['html']
 
 [[params.menu]]
 name = "home"
@@ -44,7 +52,6 @@ url = "/posts"
 [[params.menu]]
 name = "whoami"
 url = "/whoami"
-
 
 [[params.social]]
 name = "github"
