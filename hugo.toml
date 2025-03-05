@@ -3,11 +3,12 @@ languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo"
 
-# [taxonomies]
-# tag = "tags"
+[taxonomies]
+tag = "tags"
 
 [params]
-description = "A blog about software and more"
+description = "A tech-oriented personal blog"
+images = ["og.png"]
 
 theme = "auto"
 colorPalette = "gruvebox"
@@ -26,8 +27,9 @@ This is my personal page where you can find out more about me and my projects an
 """
 
 hideHeader = true
-showFooter = true
 breadcrumbs = true
+showFooter = true
+footerContent = "Your **custom** md `footer`"
 
 paginationSize = 100
 listSummaries = true

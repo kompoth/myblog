@@ -1,3 +1,5 @@
+*.xcf
+
 # Hugo artifacts
 .hugo_build.lock
 public
