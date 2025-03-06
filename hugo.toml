@@ -28,7 +28,6 @@ This is my personal page where you can find out more about me and my projects an
 hideHeader = true
 breadcrumbs = true
 showFooter = true
-footerContent = "Your **custom** md `footer`"
 
 paginationSize = 100
 listSummaries = true
