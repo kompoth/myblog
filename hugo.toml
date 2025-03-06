@@ -1,7 +1,7 @@
 baseURL = "https://kmiziz.xyz/"
 languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
-theme = "typo"
+theme = "typo-fork"
 
 [taxonomies]
 tag = "tags"
@@ -60,6 +60,10 @@ url = "https://github.com/kompoth"
 [[params.social]]
 name = "linkedin"
 url = "https://www.linkedin.com/in/kompoth/"
+
+[[params.social]]
+name = "twitter"
+url = "https://twitter.com/fleshvortex1"
 
 [markup]
 [markup.highlight]

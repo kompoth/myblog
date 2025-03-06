@@ -1,4 +1,5 @@
 *.xcf
+themes/*
 
 # Hugo artifacts
 .hugo_build.lock
