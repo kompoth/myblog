@@ -50,6 +50,10 @@ name = "posts"
 url = "/posts"
 
 [[params.menu]]
+name = "tools"
+url = "/tools"
+
+[[params.menu]]
 name = "whoami"
 url = "/whoami"
 
