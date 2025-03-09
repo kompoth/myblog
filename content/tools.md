@@ -15,7 +15,6 @@ A list of my preferred tools.
 ## Software
 - **OS:** Arch Linux (personal), Ubuntu (work)
 - **Desktop environment:** KDE
-- **Standalone WMs [deprecated]**: don't use them anymore, but bspwm and EvilWM were the best fit to me.
 - **Terminal emulator:** Alacritty
 - **Text editor:** Neovim
 - **SQL client:** DBeaver CE
