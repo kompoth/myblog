@@ -10,7 +10,7 @@ tags: ["Neovim", "Python", "LSP"]
 showTags: false 
 ---
 
-As a seasoned Python Developer I want to be productive and write reliable code. To some point this could be assured by various programming tools,
+As a dedicated Python Developer I want to be productive and write reliable code. To some point this could be assured by various programming tools,
 such as linters, formatters, type checkers, and LSP servers. Most modern IDEs offer out-of-the-box support of these clever utilities, so some developers
 don't even think about them.
 
