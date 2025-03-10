@@ -1,9 +1,9 @@
-+++
-title = "Tools"
-description = "A list of my preferred tools"
-hideBackToTop = true
-hidePagination = true
-+++
+---
+title: "Tools"
+description: "A list of my preferred tools"
+hideBackToTop: true
+hidePagination: true
+---
 
 A list of my preferred tools.
 

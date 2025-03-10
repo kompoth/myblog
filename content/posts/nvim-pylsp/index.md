@@ -85,10 +85,10 @@ return {
     tag = "v0.1.8",
     config = function()
         require("lspconfig").pylsp.setup {
-            pylsp = {
-                pylsp_mypy = {
-                    enabled = true,
-                },
+            settings = {
+                pylsp = {
+                    pylsp_mypy = {enabled = true},
+                }
             }
         }
     end

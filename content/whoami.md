@@ -1,9 +1,9 @@
-+++
-title = "Who Am I"
-description = "A few words about me"
-hideBackToTop = true
-hidePagination = true
-+++
+---
+title: "Who Am I"
+description: "A few words about me"
+hideBackToTop: true
+hidePagination: true
+---
 
 I graduated as M. Sc. in Physics with honors from the Lomonosov MSU in 2022. After graduting I decided to switch from science to IT.
 As much as I was interested in my scientific research, I have been always eager to create impactful and practical solutions.
