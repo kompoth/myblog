@@ -73,6 +73,9 @@ pipx inject python-lsp-server pylsp-mypy
 You may also want to check out other Python LSP implementations, such as [Pyright](https://github.com/microsoft/pyright).
 I figure the approach would be the same.
 
+I would also recommend to install `python-lsp-ruff` plugin the same way. It basically replaces all default `pylsp` formatting and linting with
+[ruff](https://docs.astral.sh/ruff/) which is very fast (thanks to Rust) and pretty flexible.
+
 ## lspconfig setup
 Now we need to configure Neovim to use the preferred LSP. This can be achieved pretty easily with the help of
 [lspconfig](https://github.com/neovim/nvim-lspconfig), a total must-have for your Neovim LSP configuration.
@@ -88,18 +91,19 @@ return {
             settings = {
                 pylsp = {
                     pylsp_mypy = {enabled = true},
+                    ruff = {enabled = true},
                 }
             }
         }
     end
 ```
-As you can see, there is not so much to configure here. I just have `pylsp-mypy` plugin enabled.
-You may find more options [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md),
-and here is an [example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
-I personally prefer specific style rules to be set individually per project, e.g. in `pyproject.toml`.
-
+As you can see, there is not so much to configure here. I just have the plugins enabled, which isn't necessary, they will be enabled by default.
 With this you should have diagnostic messages from `pylsp` in your Neovim buffer with Python code:
+
 ![LSP messages](lsp-messages.png)
+
+You may find more configuration options [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md),
+and here is an [example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
 
 ## On `mypy` configuration
 When using LSP with integrated `mypy` make sure that it knows where to look for third-party packages. If you are using a virtual environment in your
