@@ -301,4 +301,5 @@ Well, I like doing that! I will definitely continue this project, and for sure t
 to this post.
 
 ## Useful links
-- [Blog post by Heiker Curiel](https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/)
+- [Neovim LSP guide by Heiker Curiel](https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/)
+- [On completion from the same author](https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/)
