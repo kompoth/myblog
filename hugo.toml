@@ -2,6 +2,7 @@ baseURL = "https://kmiziz.xyz/"
 languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo-fork"
+# theme = "ananke"
 
 [taxonomies]
 tag = "tags"
@@ -26,7 +27,6 @@ This is my personal page where you can find out more about me and my projects an
 """
 
 hideHeader = true
-breadcrumbs = true
 showFooter = true
 
 paginationSize = 100
@@ -40,6 +40,11 @@ home = ['html']
 section = ['html', 'rss']
 taxonomy = ['html']
 term = ['html']
+
+[params.breadcrumbs]
+enabled = true
+showCurrentPage = true
+home = "~"
 
 [[params.menu]]
 name = "home"
@@ -71,4 +76,7 @@ url = "https://twitter.com/fleshvortex1"
 
 [markup]
 [markup.highlight]
-style = 'gruvbox'
+style = "gruvbox"
+tabWidth = 4
+lineNos = true
+lineNumbersInTable = false
