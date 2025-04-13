@@ -2,7 +2,6 @@ baseURL = "https://kmiziz.xyz/"
 languageCode = "en-us"
 title = "⬡⬢⬡ Vasily Negrebetskiy"
 theme = "typo-fork"
-# theme = "ananke"
 
 [taxonomies]
 tag = "tags"
@@ -78,5 +77,5 @@ url = "https://twitter.com/fleshvortex1"
 [markup.highlight]
 style = "gruvbox"
 tabWidth = 4
-lineNos = true
+lineNos = false 
 lineNumbersInTable = false
