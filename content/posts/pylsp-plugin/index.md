@@ -107,8 +107,8 @@ def pylsp_code_actions(
 
 This is of course just a toy example. Real life use cases will require a lot more lines of code invoking
 [static code analysis](https://en.wikipedia.org/wiki/Static_program_analysis) and refactoring (maybe in the whole
-document or even the project, not only in lines under the cursor). Here are some libraries that you might find helpful
-for such tasks:
+document or even the project, not only in the lines under the cursor). Here are some libraries that you might find
+helpful:
 
 - [ast](https://docs.python.org/3/library/ast.html), a built-in Python
     [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
@@ -121,8 +121,8 @@ for such tasks:
 ## Logging
 
 You'll probably want to see tracebacks and log messages from `pylsp` and our plugin. To do that we need to edit `pylsp`
-call in our LSP client, be it Neovim or your preferred IDE. Just make sure it is called with
-`-vv --log-file /tmp/pylsp.log`. E.g. for Neovim with `lspconfig` configuration must look like this:
+call in your preferred LSP client, be it Neovim or some IDE. Just make sure it is called with
+`-vv --log-file /tmp/pylsp.log`. E.g. for Neovim with `lspconfig` configuration would look like this:
 
 ```lua {hl_lines=[7]}
 {
