@@ -1,5 +1,4 @@
 *.xcf
-themes/*
 resources/_gen/*
 
 # Hugo artifacts
