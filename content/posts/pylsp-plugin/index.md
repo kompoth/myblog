@@ -165,7 +165,7 @@ pylsp-plugin-project/
 └── pyproject.py
 ```
 
-Where `plugin.py` will contain hook implementations for our plugin (we'll get to it soon).
+Where `plugin.py` will contain hook implementations for our plugin.
 
 Here is what we need to have in our `pyproject.toml` than:
 
