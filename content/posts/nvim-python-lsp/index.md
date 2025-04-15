@@ -110,7 +110,7 @@ This plugin provides basic configurations for various LSP servers.
 
 I have it set up just as any other plugin in it's own dedicated script:
 ```lua
-return {
+{
     "neovim/nvim-lspconfig",
     config = function()
         local lspconfig = require("lspconfig")
@@ -206,7 +206,7 @@ LSP.
 First of all, we need [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) Neovim plugin enhancing built-in completion
 capabilities. Here is my `nvim-cmp` configuration:
 ```lua
-return {
+{
     "hrsh7th/nvim-cmp",
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
@@ -253,7 +253,7 @@ Now we need `pylsp` to provide Neovim with new completion options. To do that we
 [previously shown](#lspconfig-setup) `lspconfig` setup (I've highlighted changes for you):
 
 ```lua {hl_lines=[5, 12, "16-20"]}
-return {
+{
     "neovim/nvim-lspconfig",
     config = function()
         local lspconfig = require("lspconfig")
