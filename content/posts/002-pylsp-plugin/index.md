@@ -23,7 +23,6 @@ I am going to explain this in detail with some toy examples. For real life examp
 check out my project [Starkiller](https://github.com/kompoth/starkiller).
 
 ## Implementing plugin logic
-
 [Here](https://github.com/python-lsp/python-lsp-server/blob/04fa3e59e82e05a43759f7d3b5bea2fa7a9b539b/pylsp/hookspecs.py)
 you can see the full list of hooks specified by `pylsp`. No docstrings, but it is usually pretty obvious what they do.
 
@@ -105,21 +104,22 @@ def pylsp_code_actions(
     return converter.unstructure([code_action])
 ```
 
-This is of course just a toy example. Real life use cases will require a lot more lines of code invoking
-[static code analysis](https://en.wikipedia.org/wiki/Static_program_analysis) and refactoring (maybe in the whole
-document or even the project, not only in the lines under the cursor). Here are some libraries that you might find
-helpful:
+Real life tasks will require a lot more lines of code invoking
+[static code analysis](https://en.wikipedia.org/wiki/Static_program_analysis) and refactoring. At some point you may
+want to refactor not only the lines under the cursor, but the whole current document or even the whole project. You
+might need to be aware of your virtual environments: available Python versions and installed packages.
+
+Here are some libraries that you might find helpful for static analysis and code refactoring:
 
 - [ast](https://docs.python.org/3/library/ast.html), a built-in Python
     [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
     implementation, very useful for fast linting.
 - [Parso](https://parso.readthedocs.io), a
     [CST](https://en.wikipedia.org/wiki/Parse_tree)
-    implementation, which will help with complex source code refactoring.
+    implementation, which will help with complex source code edits.
 - [Jedi](https://jedi.readthedocs.io) and [Rope](https://github.com/python-rope/rope), powerful refactoring libraries.
 
 ## Logging
-
 You'll probably want to see tracebacks and log messages from `pylsp` and our plugin. To do that we need to edit `pylsp`
 call in your preferred LSP client, be it Neovim or some IDE. Just make sure it is called with
 `-vv --log-file /tmp/pylsp.log`. E.g. for Neovim with `lspconfig` configuration would look like this:
@@ -140,7 +140,7 @@ call in your preferred LSP client, be it Neovim or some IDE. Just make sure it i
 }
 ```
 
-Now we will see error and `pylsp` log messages in `/tmp/pylsp.log` file.
+Now you will see error and `pylsp` log messages in `/tmp/pylsp.log` file.
 
 If you want to add custom log messages for your plugin, it can be easily done with this code:
 
@@ -153,8 +153,8 @@ log.debug("Initializing custom pylsp plugin")
 
 ## Plugin entry point
 
-We need to configure package [entry point](https://packaging.python.org/en/latest/specifications/entry-points/) for
-Pluggy to recognise our custom plugin. The modern way to set this and other package attributes is `pyproject.toml` file.
+We need to configure an [entry point](https://packaging.python.org/en/latest/specifications/entry-points/) for Pluggy
+to recognise our custom plugin. The modern way to set this and other package attributes is the `pyproject.toml` file.
 
 Assume we have the following project structure:
 ```bash
@@ -162,7 +162,7 @@ pylsp-plugin-project/
 ├── src
 │   ├── __init__.py
 │   └── plugin.py 
-└── pyproject.py
+└── pyproject.toml
 ```
 
 Where `plugin.py` will contain hook implementations for our plugin.
@@ -178,23 +178,21 @@ Note the `our_plugin` word -- this is basically the name of our plugin as it wil
 this word to enable and configure the plugin in `pylsp` settings.
 
 ## Enabling the plugin in `pylsp`
-
 To enable our plugin in `pylsp` we need to build it as a package and install it into the same virtual environment where
 we have `pylsp` installed.
 
-First part could be achieved with various tools for building Python packages. It is a completely different subject which
-is way out of this post scope, so we won't go deep into it. You probably should just stick with
-[Poetry](https://python-poetry.org/) or [uv](https://docs.astral.sh/uv/). These two are modern tools for dependency and
-environment management, and the latter is also blazing fast. Both provide `build` command to build your project into a
-package. I'll just need to configure `pyproject.toml` file correctly (see docs for details).
+First part could be achieved with various tools for building Python packages. This is way out of this post scope, so we
+won't go deep into it. You probably should just stick with [Poetry](https://python-poetry.org/) or
+[uv](https://docs.astral.sh/uv/). These two are modern tools for dependency and environment management, and the latter
+is also blazing fast. Both provide `build` command to build your project into a package. See docs for details.
 
 With this being done you'll have a [wheel](https://packaging.python.org/en/latest/discussions/package-formats/) file --
-the plugin's distribution. It will probably be located in `dist/` directory of your project. Now we need to
+the plugin's packaged distribution. It will probably be located in `dist/` directory of your project. Now we need to
 install it.
 
-As I already mentioned in the previous post, I prefer `pipx` utility to install Python tools. It manages tool's virtual
-environment and can also easily inject additional dependencies for the already installed tool. If you have `pylsp`
-installed via `pipx`, you'll need to `inject` your plugin into `pylsp` environment:
+As I already mentioned in the previous post, I prefer `pipx` utility to install Python tools. It keeps the package in a
+separate virtual environment and also can inject additional dependencies into it. If you have `pylsp` installed via
+`pipx`, you'll need to `inject` your plugin into `pylsp` environment:
 
 ```bash
 pipx inject python-lsp-server ./dist/pylsp-plugin-project-<VERSION>-py3-none-any.whl 
@@ -223,11 +221,17 @@ Finally, we need to enable the plugin in `pylsp` configuration. With Neovim and 
 As you can see, we use here the name of our package entry point from the previous section.
 
 Now try to run your code editor and request available Code Actions in any Python script. In Neovim it can be done with
-`vim.lsp.buf.code_action()` command. AFAIK, in PyCharm with [LSP4IJ](https://github.com/redhat-developer/lsp4ij) plugin
-Code Actions are listed with the right mouse button click.
+`vim.lsp.buf.code_action()` command, and in an IDE with LSP support Code Actions will probably by listed in right mouse
+button menu (e.g. in PyCharm with [LSP4IJ](https://github.com/redhat-developer/lsp4ij) plugin). 
 
 If there are any problems, check out the log. If you implemented and enabled the plugin correctly, you'll see messages
 like this:
 ```plain
 INFO - pylsp.config.config - Loaded pylsp plugin our_plugin ...
 ```
+
+## Conclusion
+Creating custom `pylsp` plugins isn’t something every developer needs to do. Building your own tools is often way less
+productive than using well-maintained existing ones. However, from a static analysis perspective, it’s an interesting
+and rewarding exercise. It offers insight into how language servers work under the hood and opens the door to highly
+tailored editor features that can fit specific workflows or experimental ideas.
