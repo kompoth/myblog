@@ -45,13 +45,14 @@ enabled = true
 showCurrentPage = true
 home = "~"
 
-[[params.menu]]
-name = "home"
-url = "/"
 
 [[params.menu]]
 name = "posts"
 url = "/posts"
+
+[[params.menu]]
+name = "projects"
+url = "/projects"
 
 [[params.menu]]
 name = "tools"
