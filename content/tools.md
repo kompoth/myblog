@@ -11,6 +11,7 @@ A list of my preferred tools.
 - **Laptop:** Thinkpad X1 Carbon Gen 10
 - **Keyboard**: Logi MX Mechanical Mini
 - **Mouse:** Logi MX Vertical
+- **Phone:** Google Pixel 9a
 
 ## Software
 - **OS:** Arch Linux (personal), Ubuntu (work)
