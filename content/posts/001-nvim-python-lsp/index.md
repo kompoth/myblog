@@ -148,7 +148,7 @@ You may find more configuration options
 [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md), and here is an
 [example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
 
-## On `mypy` configuration
+## `mypy` configuration
 When using LSP with integrated `mypy` make sure that it knows where to look for third-party packages. If you are using
 a virtual environment in your project, you need to specify its path for `mypy`. It could be achieved via `mypy.ini`
 configuration file in the root of your project with the following lines (assuming your virtual environment is located
@@ -166,7 +166,36 @@ If you want to disable all type messages for a specific project, just add this s
 ignore_errors=true
 ```
 
-## Adding handy key bindings
+The full configuration of my choice is the following:
+
+```ini
+[mypy]
+python_executable=./.venv/bin/python
+strict = True
+warn_return_any = True
+warn_unused_configs = True
+check_untyped_defs = True
+```
+
+For some projects that is not all. Some libraries like SQLAlchemy or Pydantic provide their own `mypy` plugins
+necessary for correct type checking. This usually means you will have to install the library so that it would be exposed
+to `mypy` (i.e. in `python-lsp-server` environment in our case). We already know how to do that:
+
+```bash
+pipx inject python-lsp-server sqlalchemy
+pipx inject python-lsp-server pydantic
+```
+
+We will also need to enable those plugins in project settings. In `mypy.ini` this would look like the following:
+
+```ini
+[mypy]
+plugins = pydantic.mypy, sqlalchemy.ext.mypy.plugin
+```
+
+In case of SQLAlchemy I would also recommend to install `sqlalchemy-stubs` as dev dependency in your project.
+
+## Key bindings
 The Neovim's LSP functionality is much more than just showing diagnostic messages.
 You probably would like to have some LSP actions binded to hotkeys, like showing a method signature or unwrapping a
 long error message.
