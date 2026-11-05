@@ -1,7 +1,7 @@
-baseURL = "https://kmiziz.xyz/"
+baseURL = "https://kmicic.net/"
 languageCode = "en-us"
-title = "⬡⬢⬡ Vasily Negrebetskiy"
-theme = "typo-fork"
+title = "⬡⬢⬡ Vasilii Negrebetskii"
+theme = "typo"
 
 [taxonomies]
 tag = "tags"
@@ -12,21 +12,26 @@ description = "A tech-oriented personal blog"
 theme = "auto"
 colorPalette = "gruvebox"
 
-homeIntroTitle = "Hi! -`ღ´-"
+homeIntroTitle = "Hi, my name is Vasilii -`ღ´-"
 homeIntroContent = """
-I am a seasoned Python Developer with a strong scientific background and enthusiasm for creating impactful solutions.
-There are various topics I am interested in, including software architecture, data handling, static code analysis, and procedural generation.
+I am a somewhat seasoned Python Developer and MLOps Engineer, ex-FinTech. Always building something.
 
-Apart from programming, I am a big fan of [HEMA](https://en.wikipedia.org/wiki/Historical_European_martial_arts),
-tabletop role-playing games, fantasy and science fiction literature.
+I have an M.Sc. in Physics, and I am still passionate about stars and why they burn.
 
-![Jacques Callot, Duel with Swords and Daggers](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Jacques_Callot%2C_Duel_with_Swords_and_Daggers%2C_c._1622%2C_NGA_51629.jpg/800px-Jacques_Callot%2C_Duel_with_Swords_and_Daggers%2C_c._1622%2C_NGA_51629.jpg "Jacques Callot, Duel with Swords and Daggers")
+In my free time I like to do [HEMA](https://en.wikipedia.org/wiki/Historical_European_martial_arts), tabletop RPGs, and wargames.
 
-This is my personal page where you can find out more about me and my projects, and probably read some of my blog posts.
+But most importantly, I am a loving husband and cat dad.
+
+*Kmicic* is a nickname taken in middle school after the main character of Henryk Sienkiewicz's historical novel *The Deluge*.
+We have to carry the burden of our questionable decisions made in childhood all our lives, I guess.
 """
 
 hideHeader = true
 showFooter = true
+footerContent = """
+Powered by [Hugo](https://gohugo.io/) & [Typo](https://github.com/tomfran/typo).
+Content licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+"""
 
 paginationSize = 100
 listSummaries = true
@@ -45,22 +50,17 @@ enabled = true
 showCurrentPage = true
 home = "~"
 
-
 [[params.menu]]
 name = "posts"
 url = "/posts"
-
-[[params.menu]]
-name = "projects"
-url = "/projects"
 
 [[params.menu]]
 name = "tools"
 url = "/tools"
 
 [[params.menu]]
-name = "whoami"
-url = "/whoami"
+name = "subscribe"
+url = "/rss"
 
 [[params.social]]
 name = "github"
@@ -69,10 +69,6 @@ url = "https://github.com/kompoth"
 [[params.social]]
 name = "linkedin"
 url = "https://www.linkedin.com/in/kompoth/"
-
-[[params.social]]
-name = "twitter"
-url = "https://twitter.com/fleshvortex1"
 
 [markup]
 [markup.highlight]

@@ -9,6 +9,7 @@ readTime: true
 autonumber: false 
 tags: ["Neovim", "Python", "LSP"]
 showTags: false 
+draft: true
 ---
 
 As a dedicated Python Developer I want to be productive and write reliable code. To some point this could be assured by

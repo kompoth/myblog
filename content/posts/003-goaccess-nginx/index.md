@@ -8,6 +8,7 @@ readTime: true
 autonumber: false 
 tags: ["Linux", "Nginx", "logs", "metrics"]
 showTags: false
+draft: true
 ---
 
 This post is a straightforward technical description of my [GoAccess](https://goaccess.io/) setup. GoAccess is a neat tool to monitor visits to your pages without deploying

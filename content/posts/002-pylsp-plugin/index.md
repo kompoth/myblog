@@ -8,6 +8,7 @@ readTime: true
 autonumber: false 
 tags: ["Neovim", "Python", "LSP"]
 showTags: false
+draft: true
 ---
 
 In the previous post I mentioned `python-lsp-server` plugin system. This feature is one of the reasons why I like
