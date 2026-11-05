@@ -25,7 +25,7 @@ jobs:
         run: |
           rsync -az --delete --exclude='.git' \
             -e "ssh -i ~/.ssh/id_ed25519" \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/stacks/blog/src/
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/stacks/myblog/src/
 
       - name: Build and deploy
         run: ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} true
