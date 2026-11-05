@@ -1,16 +1,20 @@
 ---
 title: "Neovim Python LSP setup"
 date: "2025-03-04"
-lastmod: "2025-04-10"
+lastmod: "2026-11-05"
 summary: "My take on a sane Neovim LSP and static type checker configuration."
 description: "My take on a sane Neovim configuration with a LSP and a static type checker for a Python Developer."
 toc: true 
-readTime: true
-autonumber: false 
 tags: ["Neovim", "Python", "LSP"]
-showTags: false 
-draft: true
 ---
+
+> **WARNING: this post might be a water under the bridge!**
+>
+> Time passes, love dyes, configuration files change. My Neovim setup has evolved a lot since this post has been
+> initially written, and keeping the text up to date is becoming too exhausting (though I try to). Therefore, check
+> the last update time before following any of below instructions.
+>
+> **Last modified:** {{< lastmod >}}
 
 As a dedicated Python Developer I want to be productive and write reliable code. To some point this could be assured by
 various programming tools, such as linters, formatters, type checkers, and LSP servers. Most modern IDEs offer
@@ -40,17 +44,13 @@ definitions, and detecting virtual environments. The languages servers that use 
 I personally prefer `python-lsp-server` (or `pylsp`) for the following reasons:
 
 1. It is written in Python, so I can easily understand its source and patch it.
-2. It has a plugin mechanism which allows me to choose from a bunch of external tools
-    (such as [mypy](https://github.com/python/mypy)) and easily write my own plugins.
+2. It has a plugin mechanism which allows me to choose from a bunch of external tools and easily write my own plugins.
 
-Additionally, I would really like to use such fast and flexible diagnostic tool as
-[Ruff](https://docs.astral.sh/ruff/). Ruff has its own built-in language server, and there is some huge work being done
-to implement static type checking functionality
-(see [red-knot](https://github.com/astral-sh/ruff/issues?q=label%3Ared-knot%20) label in the issue tracker).
-Unfortunately, Ruff doesn't support some LSP tricks like definitions, references and autocompletion. It also doesn't 
-have any plug system.
+Additionally, I would really like to use [Ruff](https://docs.astral.sh/ruff/), which comes with a built-in LSP server.
+Unfortunately, it doesn't support some LSP tricks like definitions, references and autocompletion.
 
-The good news is that we can use both `pylsp` and `ruff` at the same time!
+The good news is that we can use both `pylsp` and `ruff` at the same time, combining the flexibility of the first with
+the crazy performance of the later.
 
 ## Neovim setup basics
 A detailed overview of my Neovim config is beyond the scope of this post, but I still need to point out some
@@ -91,65 +91,29 @@ For now my preferred approach is `pipx`, a tool to install Python packages in de
 IMHO this is the most convenient way to install Python utilities: linters, formatters, dependency managers, and any
 Python LSP implementation you prefer.
 
-We are going to install `python-lsp-server` with `pylsp-mypy` optional plugin in the same virtual environment so that
-`pylsp` will find the plugin entry point:
-
 ```bash
 pipx install python-lsp-server[all]
-pipx inject python-lsp-server pylsp-mypy
 ```
 
-We'll also need `ruff`, but it must be installed in a separate environment as it will work independently from `pylsp`:
+We'll also need `ruff`:
 ```bash
 pipx install ruff
 ```
 
-## `lspconfig` setup
-Now we need to configure Neovim to use the preferred LSP. This can be achieved pretty easily with the help of
-[lspconfig](https://github.com/neovim/nvim-lspconfig), a total must-have for your Neovim LSP configuration.
-This plugin provides basic configurations for various LSP servers.
+### Adding `pylsp` plugins
 
-I have it set up just as any other plugin in it's own dedicated script:
-```lua
-{
-    "neovim/nvim-lspconfig",
-    config = function()
-        local lspconfig = require("lspconfig")
+If you plan to use any plugins, don't forget to *inject* them in the same virtual environment where `pylsp` has been
+installed to. Otherwise it won't manage to discover them.
 
-        -- Enable Ruff server
-        lspconfig.ruff.setup{}
-
-        -- Enable pylsp
-        lspconfig.pylsp.setup {
-            cmd = {"pylsp", "-vv", "--log-file", "/tmp/pylsp.log"},
-            settings = {
-                pylsp = {
-                    plugins = {
-                        -- Disable built-in linters and formatters in favor of Ruff
-                        pyflakes = { enabled = false },
-                        mccabe = { enabled = false },
-                        yapf = { enabled = false },
-                        autopep8 = { enabled = false },
-
-                        -- Enable mypy plugin for type checking 
-                        pylsp_mypy = {enabled = true},
-                    }
-                }
-            }
-        }
-    end
-}
+```
+pipx inject install python-lsp-server pylsp-mypy
 ```
 
- With this you should have diagnostic messages from `pylsp` in your Neovim buffer with Python code:
+### On `mypy` configuration
 
-![LSP messages](lsp-messages.png)
+> **Note:** currently I prefer to run type checks via pre-commit hooks rather than while writing code, so I dropped
+> `pylsp_mypy` from my Neovim config. I am leaving this section just in case anyone needs it.
 
-You may find more configuration options
-[here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md), and here is an
-[example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
-
-## On `mypy` configuration
 When using LSP with integrated `mypy` make sure that it knows where to look for third-party packages. If you are using
 a virtual environment in your project, you need to specify its path for `mypy`. It could be achieved via `mypy.ini`
 configuration file in the root of your project with the following lines (assuming your virtual environment is located
@@ -166,6 +130,54 @@ If you want to disable all type messages for a specific project, just add this s
 [mypy]
 ignore_errors=true
 ```
+
+
+## `lspconfig` setup
+Now we need to configure Neovim to use the preferred LSP. This can be achieved pretty easily with the help of
+[lspconfig](https://github.com/neovim/nvim-lspconfig), a total must-have for your Neovim LSP configuration.
+This plugin provides basic configurations for various LSP servers.
+
+I have it set up just as any other plugin in it's own dedicated script:
+```lua
+{
+    "neovim/nvim-lspconfig",
+    config = function()
+        -- Enable Ruff server
+        vim.lsp.enable("ruff")
+
+        -- Enable pylsp
+        vim.lsp.config("pylsp", {
+            cmd = {"pylsp", "-vv", "--log-file", "/tmp/pylsp.log"},
+            settings = {
+                pylsp = {
+                    plugins = {
+                        -- Disable built-in linters and formatters in favor of Ruff
+                        pyflakes = { enabled = false },
+                        pycodestyle = { enabled = false },
+                        pydocstyle = { enabled = false },
+                        mccabe = { enabled = false },
+                        yapf = { enabled = false },
+                        autopep8 = { enabled = false },
+                        isort = { enabled = false },
+
+                        -- Enable mypy plugin for type checking (not my case!) 
+                        pylsp_mypy = {enabled = true},
+                    }
+                }
+            }
+        })
+        vim.lsp.enable("pylsp")
+    end
+}
+```
+
+With this you should have diagnostic messages from `ruff` and `pylsp` in your Neovim buffer with Python code:
+
+![LSP messages](lsp-messages.png)
+
+You may find more configuration options
+[here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md), and here is an
+[example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
 
 ## Adding handy key bindings
 The Neovim's LSP functionality is much more than just showing diagnostic messages.
@@ -188,11 +200,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Show a hover window with symbol's docs
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
+    -- Rename the symbol inside current buffer
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+
     -- Show symbol usage in the project
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 
+    -- Show signature help
+    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+
     -- Show diagnostics message
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+
+    -- Go to next diagnostics message
+    vim.keymap.set('n', '<space>n', vim.diagnostic.goto_next, opts)
+
+    -- Format the whole buffer
+    vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
 })
 ```
 
@@ -253,18 +277,17 @@ Now we need `pylsp` to provide Neovim with new completion options. To do that we
 `pylsp` about Neovim's completion capabilities. The following code is an extended version of
 [previously shown](#lspconfig-setup) `lspconfig` setup (I've highlighted changes for you):
 
-```lua {hl_lines=[5, 12, "16-20"]}
+```lua {hl_lines=[4, 11, "15-19"]}
 {
     "neovim/nvim-lspconfig",
     config = function()
-        local lspconfig = require("lspconfig")
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        
+
         -- Enable Ruff server
-        lspconfig.ruff.setup{}
+        vim.lsp.enable("ruff")
 
         -- Enable pylsp
-        lspconfig.pylsp.setup {
+        vim.lsp.config("pylsp", {
             capabilities = capabilities,
             settings = {
                 pylsp = {
@@ -277,16 +300,20 @@ Now we need `pylsp` to provide Neovim with new completion options. To do that we
 
                         -- Disable linters and formatters
                         pyflakes = { enabled = false },
+                        pycodestyle = { enabled = false },
+                        pydocstyle = { enabled = false },
                         mccabe = { enabled = false },
                         yapf = { enabled = false },
                         autopep8 = { enabled = false },
+                        isort = { enabled = false },
 
                         -- For type checking 
                         pylsp_mypy = {enabled = true},
                     }
                 }
             }
-        }
+        })
+        vim.lsp.enable("pylsp")
     end
 }
 ```
