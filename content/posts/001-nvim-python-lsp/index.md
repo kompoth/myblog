@@ -53,6 +53,7 @@ The good news is that we can use both `pylsp` and `ruff` at the same time, combi
 the crazy performance of the later.
 
 ## Neovim setup basics
+
 A detailed overview of my Neovim config is beyond the scope of this post, but I still need to point out some
 fundamentals.
 
@@ -84,6 +85,7 @@ I use [lazy.nvim](https://lazy.folke.io/) to install and update Neovim plugins, 
 That's mostly simple as that.
 
 ## Installing Python LSP with `pipx`
+
 I am aware of [Mason](https://github.com/williamboman/mason.nvim), a Neovim plugin to manage LSPs, linters, etc. Might
 give it a try some day.
 
@@ -95,29 +97,33 @@ Python LSP implementation you prefer.
 pipx install python-lsp-server[all]
 ```
 
-We'll also need `ruff`:
+If you plan to use any plugins, don't forget to *inject* them in the same virtual environment where `pylsp` has been
+installed to. Otherwise it won't manage to discover them.
+
+```
+pipx inject install python-lsp-server <plugin-name>
+```
+
+We'll also need `ruff` as a separate tool:
 ```bash
 pipx install ruff
 ```
 
-### Adding `pylsp` plugins
+### Using `mypy` with `pylsp`
 
-If you plan to use any plugins, don't forget to *inject* them in the same virtual environment where `pylsp` has been
-installed to. Otherwise it won't manage to discover them.
+> **WARNING:** Currently I prefer to run type checks via pre-commit hooks rather than while writing code, so I dropped
+> `mypy` from my Neovim config. I am leaving this section just in case anyone needs it.
+
+First of all, *inject* `pylsp-mypy` plugin in the `pylsp` environment:
 
 ```
 pipx inject install python-lsp-server pylsp-mypy
 ```
 
-### On `mypy` configuration
-
-> **Note:** currently I prefer to run type checks via pre-commit hooks rather than while writing code, so I dropped
-> `pylsp_mypy` from my Neovim config. I am leaving this section just in case anyone needs it.
-
 When using LSP with integrated `mypy` make sure that it knows where to look for third-party packages. If you are using
 a virtual environment in your project, you need to specify its path for `mypy`. It could be achieved via `mypy.ini`
 configuration file in the root of your project with the following lines (assuming your virtual environment is located
-in `.venv/`):
+in `.venv/` in the project root):
 
 ```ini
 [mypy]
@@ -131,8 +137,8 @@ If you want to disable all type messages for a specific project, just add this s
 ignore_errors=true
 ```
 
-
 ## `lspconfig` setup
+
 Now we need to configure Neovim to use the preferred LSP. This can be achieved pretty easily with the help of
 [lspconfig](https://github.com/neovim/nvim-lspconfig), a total must-have for your Neovim LSP configuration.
 This plugin provides basic configurations for various LSP servers.
@@ -180,6 +186,7 @@ You may find more configuration options
 [example config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pylsp) from the `lspconfig` repo.
 
 ## Adding handy key bindings
+
 The Neovim's LSP functionality is much more than just showing diagnostic messages.
 You probably would like to have some LSP actions binded to hotkeys, like showing a method signature or unwrapping a
 long error message.
@@ -224,6 +231,7 @@ More useful LSP methods and their binding examples could be found in the `lspcon
 `:help lspconfig-keybindings`.
 
 ## Advanced completion
+
 By default Neovim provides only literals from open buffers for autocompletion. This is not very handy and will
 definitely make our lives harder compared to our IDE wielding colleagues. It can be extended though with the help of
 LSP.
@@ -323,11 +331,13 @@ And now we can get not only literals, but also objects attributes in our complet
 ![Completion](completion.png)
 
 ## To be continued?
+
 I still occasionally update this article weeks after it was originally published, and many months after I started to
 dig into language servers and Neovim LSP support, and I still find some new and exciting ways to adjust my setup.
 Well, I like doing that! I will definitely continue this project, and for sure there will be more interesting updates
 to this post.
 
 ## Useful links
+
 - [Neovim LSP guide by Heiker Curiel](https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/)
 - [On completion from the same author](https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/)
